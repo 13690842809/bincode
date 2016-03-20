@@ -8,7 +8,7 @@ public class compounding {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner s=new Scanner(System.in);
-		System.out.println("1.复利计算   2.单利计算  3.总额反向计算本金  4.买股票算年份  5.本金终值求利率  6.每年都投入本金");
+		System.out.println("1.复利计算   2.单利计算  3.总额反向计算本金  4.买股票算年份  5.本金终值求利率  6.每年都投入本金  7.贷款");
 		int num=s.nextInt();
 		
 			switch(num){
@@ -34,6 +34,9 @@ public class compounding {
 						six1(s);
 					else
 						six2(s);
+					break;
+				case 7:
+					seven(s);
 					break;
 				default:
 					System.out.println("输入有误");
@@ -89,7 +92,7 @@ public class compounding {
 		System.out.println("请输入利率:");
 		double r=s.nextDouble();
 		sum=money*r*years;
-		System.out.println("单利计算"+years+"年后总额为:"+sum);
+		System.out.println("单利计算"+years+"年后总额为:"+(sum+money));
 	}
 
 	private static void one(Scanner s) {
@@ -100,10 +103,9 @@ public class compounding {
 		int years=s.nextInt();
 		System.out.println("请输入利率:");
 		double r=s.nextDouble();
-		for(int i=1;i<=years;i++){
-			sum=(1+r)*i*money;
-			System.out.println(i+"年后总额为"+sum);
-		}
+
+		sum=money*Math.pow(1+r, years);
+		System.out.println(years+"年后总额为"+sum);
 	}
 	
 	private static void six1(Scanner s){
@@ -130,6 +132,18 @@ public class compounding {
 		System.out.println("年后总额为"+sum);
 	}
 	
+	private static void seven(Scanner s) {
+		double sum=0;
+		System.out.println("请输入本金：");
+		double money=s.nextDouble();
+		System.out.println("请输入年数:");
+		int years=s.nextInt();
+		System.out.println("请输入利率:");
+		double r=s.nextDouble();
+		sum=money*Math.pow(1+r, years);
+		double monthMoney=sum/years/12;
+		System.out.println("每月还的本息金额为："+monthMoney);
+	}
 	
 	
 
