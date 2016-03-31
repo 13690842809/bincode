@@ -1,12 +1,28 @@
 package bin;
 
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.SQLException;
+import java.util.Properties;
 import java.util.Scanner;
+import static org.junit.Assert.*;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class compounding {
+public class compounding  {
 
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
+		Driver driver =new com.mysql.jdbc.Driver();
+		String url="jdbc:mysql://127.0.0.1:3306/compounding";
+		Properties info=new Properties();
+		info.put("user","root");
+		info.put("password","abc97520");
+		Connection conn=driver.connect(url, info);
+		conn.close();
+		System.out.println(conn);
+		
 		Scanner s=new Scanner(System.in);
 		System.out.println("1.复利计算   2.单利计算  3.总额反向计算本金  4.买股票算年份  5.本金终值求利率  6.每年都投入本金  7.贷款");
 		int num=s.nextInt();
@@ -45,7 +61,7 @@ public class compounding {
 		
 	}
 
-	private static void five(Scanner s) {
+	public static void five(Scanner s) {
 		double sum=0;
 		System.out.println("请输入本金：");
 		double startmoney=s.nextDouble();
@@ -57,7 +73,7 @@ public class compounding {
 		System.out.println(r);
 	}
 
-	private static void four(Scanner s) {
+	public static void four(Scanner s) {
 		double sum=0;
 		System.out.println("请输入本金：");
 		double startmoney=s.nextDouble();
@@ -69,7 +85,7 @@ public class compounding {
 		System.out.println("存入"+startmoney+"每年按"+r+"利率最终获得"+endmoney+"需要"+years);
 	}
 
-	private static void three(Scanner s) {
+	public static void three(Scanner s) {
 		double sum=0;
 		System.out.println("请输入终值：");
 		double money=s.nextDouble();
@@ -83,7 +99,7 @@ public class compounding {
 		System.out.println("复利现值为:"+Double);
 	}
 
-	private static void two(Scanner s) {
+	public static void two(Scanner s) {
 		double sum=0;
 		System.out.println("请输入本金：");
 		double money=s.nextDouble();
@@ -95,7 +111,7 @@ public class compounding {
 		System.out.println("单利计算"+years+"年后总额为:"+(sum+money));
 	}
 
-	private static void one(Scanner s) {
+	public static void one(Scanner s) {
 		double sum=0;
 		System.out.println("请输入本金：");
 		double money=s.nextDouble();
@@ -103,12 +119,11 @@ public class compounding {
 		int years=s.nextInt();
 		System.out.println("请输入利率:");
 		double r=s.nextDouble();
-
 		sum=money*Math.pow(1+r, years);
 		System.out.println(years+"年后总额为"+sum);
 	}
 	
-	private static void six1(Scanner s){
+	public static void six1(Scanner s){
 		double sum=0;
 		System.out.println("请输入每年投入本金：");
 		double money=s.nextDouble();
@@ -117,10 +132,9 @@ public class compounding {
 		System.out.println("请输入利率:");
 		double r=s.nextDouble();
 		sum=money*(1+r)*(-1+Math.pow(1+r, years))/r;
-
 		System.out.println("年后总额为"+sum);
 	}
-	private static void six2(Scanner s){
+	public static void six2(Scanner s){
 		double sum=0;
 		System.out.println("请输入每月投入本金：");
 		double money=s.nextDouble();
@@ -132,7 +146,7 @@ public class compounding {
 		System.out.println("年后总额为"+sum);
 	}
 	
-	private static void seven(Scanner s) {
+	public static void seven(Scanner s) {
 		double sum=0;
 		System.out.println("请输入本金：");
 		double money=s.nextDouble();
@@ -145,6 +159,39 @@ public class compounding {
 		System.out.println("每月还的本息金额为："+monthMoney);
 	}
 	
-	
+	public static double test_one(double a,int b,double c) {
+		double sum=a*Math.pow(1+c, b);
+		return sum;
+	}
+	public static double test_two(double a,int b,double c) {
+		double sum=a*c*b;
+		return sum+a;
+	}
+	public static double test_three(double a,int b,double c) {
+		double single=a/(1+b*c);
+		return single;
+	}
+	public static double test_four(double a,double b,double c) {
+		double years=Math.log(b/a)/Math.log(1+c);
+		return years;
+	}
+	public static double test_five(double a,double b,int c) {
+		double r=Math.pow((b/a), 1/c)-1;
+		return r;
+	}
+	public static double test_six1(double a,int b,double c) {
+		double sum=a*(1+c)*(-1+Math.pow(1+c, b))/c;
+		return sum;
+	}
+	public static double test_six2(double a,int b,double c) {
+		double sum=a*12*(1+c)*(-1+Math.pow(1+c, b))/c;
+		return sum;
+	}
+	public static double test_seven(double a,int b,double c) {
+		double sum=a*Math.pow(1+c, b);
+		double monthMoney=sum/b/12;
+		return monthMoney;
+	}
+
 
 }
